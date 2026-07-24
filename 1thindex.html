@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRÙNG HOA TÁI - Thế Giới Kinh Dị Sinh Tồn Cổ Đại</title>
+    <!-- Google Fonts Free & Viết hóa -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Cinzel:wght@600;900&family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0a0505;
+            --bg-card: #140a0a;
+            --bg-input: #1f0f0f;
+            --crimson-red: #8b0000;
+            --bright-red: #d32f2f;
+            --blood-red: #660000;
+            --gold-accent: #c5a059;
+            --text-light: #e0d8d8;
+            --text-dim: #9e8e8e;
+            --border-color: #3d1717;
+            --font-title: 'Cinzel', 'Noto Serif SC', serif;
+            --font-body: 'Be Vietnam Pro', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at center, #180505 0%, #050101 100%);
+        }
+
+        /* --- TOOLKIT ĐỊNH DẠNG VĂN BẢN (IN BẬM, IN NGHIÊNG, IN HOA, KÍCH THƯỚC) --- */
+        .text-bold { font-weight: bold; }
+        .text-italic { font-style: italic; }
+        .text-uppercase { text-transform: uppercase; }
+        .text-sm { font-size: 0.85rem; }
+        .text-lg { font-size: 1.25rem; }
+        .text-xl { font-size: 1.6rem; color: var(--gold-accent); }
+        .text-danger { color: var(--bright-red); }
+
+        /* --- MÀN HÌNH CỔNG VÀO (LANDING GATE) --- */
+        #gate-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(10,5,5,0.95)), url('https://drive.google.com/file/d/1FbFzuYfB1cCPm4qWwAZZpOAkcDAGefrv/view?usp=drive_link') center/cover no-repeat;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .gate-title {
+            font-family: var(--font-title);
+            font-size: 3.5rem;
+            color: var(--bright-red);
+            text-shadow: 0 0 20px rgba(211, 47, 47, 0.8), 0 0 40px #000;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+            animation: pulseGlow 3s infinite alternate;
+        }
+
+        .gate-subtitle {
+            font-size: 1.2rem;
+            color: var(--gold-accent);
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        .gate-btn {
+            background: linear-gradient(180deg, var(--crimson-red), var(--blood-red));
+            color: #fff;
+            border: 2px solid var(--gold-accent);
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-family: var(--font-title);
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .gate-btn:hover {
+            background: var(--bright-red);
+            box-shadow: 0 0 25px rgba(211, 47, 47, 0.9);
+            transform: scale(1.05);
+        }
+
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 10px rgba(139, 0, 0, 0.5); }
+            100% { text-shadow: 0 0 25px rgba(211, 47, 47, 0.9), 0 0 10px #fff; }
+        }
+
+        /* --- BAR ĐIỀU HÀNH BQL (ADMIN BAR) --- */
+        #admin-control-bar {
+            background: #2a0000;
+            border-bottom: 1px solid var(--bright-red);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .admin-badge {
+            background: var(--bright-red);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        /* --- HEADER & NAVIGATION --- */
+        header {
+            background: rgba(20, 10, 10, 0.95);
+            border-bottom: 2px solid var(--crimson-red);
+            padding: 15px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            color: var(--bright-red);
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        nav button {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            padding: 8px 16px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            transition: all 0.2s;
+        }
+
+        nav button:hover, nav button.active {
+            background: var(--crimson-red);
+            border-color: var(--gold-accent);
+            color: #fff;
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .page-section {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 4px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        h2.section-title {
+            font-family: var(--font-title);
+            color: var(--gold-accent);
+            border-bottom: 2px solid var(--crimson-red);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- FORM STYLES --- */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--gold-accent);
+            font-size: 0.95rem;
+        }
+
+        input[type="text"], input[type="password"], input[type="number"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            border-radius: 3px;
+            font-family: var(--font-body);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--bright-red);
+        }
+
+        .btn {
+            background: var(--crimson-red);
+            color: #fff;
+            border: 1px solid var(--gold-accent);
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: var(--bright-red);
+        }
+
+        .btn-sm {
+            padding: 4px 10px;
+            font-size: 0.8rem;
+        }
+
+        .btn-danger {
+            background: #500;
+            border-color: #800;
+        }
+        .btn-danger:hover { background: #900; }
+
+        /* --- GRID & CARDS (SẢN PHẨM / QUỶ / KIM BẢNG) --- */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #1a0d0d;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-body {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-family: var(--font-title);
+            color: var(--bright-red);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .card-meta {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+        }
+
+        /* --- DIỄN ĐÀN & BÀI ĐĂNG --- */
+        .post-card {
+            background: #180a0a;
+            border-left: 3px solid var(--crimson-red);
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gold-accent);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        /* --- HỆ THỐNG NHẮN TIN PRIVATEMSG --- */
+        .chat-box {
+            height: 300px;
+            border: 1px solid var(--border-color);
+            background: #0f0707;
+            overflow-y: auto;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .chat-msg {
+            margin-bottom: 8px;
+            padding: 6px 10px;
+            border-radius: 4px;
+            max-width: 80%;
+        }
+
+        .chat-msg.me {
+            background: #3b1111;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .chat-msg.them {
+            background: #1c1a1a;
+        }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 768px) {
+            .gate-title { font-size: 2.2rem; }
+            header { flex-direction: column; align-items: flex-start; }
+            nav { width: 100%; overflow-x: auto; padding-bottom: 5px; }
+            nav button { flex: 0 0 auto; font-size: 0.85rem; }
+            #admin-control-bar { flex-direction: column; gap: 5px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BỘ PHÁT ÂM THANH NỀN -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-scary-voodoo-horror-ambient-561.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- MÀN HÌNH CỔNG VÀO (LANDING GATE) -->
+    <div id="gate-screen">
+        <h1 class="gate-title">TRÙNG HOA TÁI</h1>
+        <p class="gate-subtitle">VƯƠNG TRIỀU CỔ ĐẠI • KINΗ DỊ SINH TỒN • ÂM DƯƠNG NGHỊCH LÝ</p>
+        <blockquote style="max-width: 600px; font-style: italic; color: #a89f9f; margin-bottom: 25px; font-size: 0.9rem;">
+            "Tử vong trong Trùng Hoa đồng nghĩa với việc linh hồn bị hủy diệt hoàn toàn. Không có hồi sinh. Không có cơ hội thứ hai."
+        </blockquote>
+        <button class="gate-btn" onclick="enterGame()">Khai Mở Cánh Cổng</button>
+
+        <div style="margin-top: 30px; font-size: 0.85rem; color: var(--gold-accent);">
+            <p><b>BAN ĐIỀU HÀNH & SÁNG LẬP:</b></p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 5px;">
+                <a href="https://www.facebook.com/profile.php?id=61592344791540" target="_blank" style="color:#aaa;">Vịnh Quyển Trà</a> |
+                <a href="https://www.facebook.com/profile.php?id=61590919357024" target="_blank" style="color:#aaa;">Biện Thừa Chí</a> |
+                <a href="https://www.facebook.com/ngon.canhtac" target="_blank" style="color:#aaa;">Ngôn Cảnh Tắc</a> |
+                <a href="https://www.facebook.com/k.nihtrung" target="_blank" style="color:#aaa;">Kinh Trung</a> |
+                <a href="https://www.facebook.com/profile.php?id=61590717492629" target="_blank" style="color:#aaa;">Đức Diểu Quỳnh</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- BAR QUẢN LÝ BQL / VIEW MODE -->
+    <div id="admin-control-bar">
+        <div>
+            <span class="admin-badge"> BQL / QUẢN TRỊ</span>
+            <span id="admin-status" style="margin-left: 10px;">Chế độ: <b style="color:var(--gold-accent)">GÓC NHÌN NGƯỜI CHƠI (MẶC ĐỊNH)</b></span>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <label style="margin:0; font-size: 0.85rem;"><input type="checkbox" id="toggle-admin-view" onchange="toggleViewMode()"> Chuyển Góc Nhìn BQL</label>
+            <button class="btn btn-sm" onclick="openLoginModal()" id="auth-btn">Đăng Nhập Quản Lý / Player</button>
+        </div>
+    </div>
+
+    <!-- HEADER NAVIGATION -->
+    <header>
+        <a href="#" class="logo">TRÙNG HOA TÁI</a>
+        <nav>
+            <button onclick="switchTab('tab-gioithieu')" class="active">Giới Thiệu</button>
+            <button onclick="switchTab('tab-thegioi')">Thiết Lập Thế Giới</button>
+            <button onclick="switchTab('tab-quydinh')">Quy Định Roleplay</button>
+            <button onclick="switchTab('tab-dialy')">Địa Lý</button>
+            <button onclick="switchTab('tab-diendan')">Diễn Đàn Ẩn Danh</button>
+            <button onclick="switchTab('tab-thuongthan')">Thương Thành</button>
+            <button onclick="switchTab('tab-bachquy')">Bách Quỷ Âm</button>
+            <button onclick="switchTab('tab-disu')">Dị Sự Bảng</button>
+            <button onclick="switchTab('tab-kimbang')">Kim Bảng Đề Danh</button>
+            <button onclick="switchTab('tab-canhan')">Hồ Sơ Cá Nhân</button>
+        </nav>
+    </header>
+
+    <!-- SEARCH BAR TOÀN HỆ THỐNG -->
+    <div style="background: #110808; padding: 10px 20px; border-bottom: 1px solid var(--border-color);">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; gap: 10px;">
+            <input type="text" id="global-search" placeholder="Nhập từ khóa tìm kiếm sản phẩm, người chơi (ID/Tên), bài viết, loại quỷ..." onkeyup="handleGlobalSearch()">
+            <button class="btn btn-sm" onclick="handleGlobalSearch()">Tìm Kiếm</button>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- 1. TRANG GIỚI THIỆU & BAN ĐIỀU HÀNH -->
+        <section id="tab-gioithieu" class="page-section active">
+            <h2 class="section-title">GIỚI THIỆU TRÙNG HOA TÁI</h2>
+            <div id="intro-content" class="text-bold text-lg" style="margin-bottom: 20px; color: var(--text-light);">
+                Chào mừng các vị linh hồn đã giáng lâm xuống Vương Triều Trùng Hoa. Đây là nơi ranh giới giữa sự sống và cái chết vô cùng mong manh. Hãy tuân thủ quy tắc để giữ lại mạng sống!
+            </div>
+            
+            <div id="bql-edit-intro" style="display:none; margin-bottom:20px;" class="post-card">
+                <label>Chỉnh Sửa Bố Cục Giới Thiệu (Chỉ Quản Lý):</label>
+                <textarea id="intro-edit-input" rows="4"></textarea>
+                <button class="btn btn-sm" style="margin-top:5px;" onclick="saveIntroContent()">Lưu Giới Thiệu</button>
+            </div>
+
+            <h3 style="color:var(--gold-accent); margin-bottom:10px;">THÔNG TIN LIÊN HỆ & BAN ĐIỀU HÀNH</h3>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">Vịnh Quyển Trà</div>
+                        <div class="card-meta">Người Sáng Lập / Ban Điều Hành</div>
+                        <a href="https://www.facebook.com/profile.php?id=61592344791540" target="_blank" class="btn btn-sm" style="text-align:center; text-decoration:none;">Liên Hệ Facebook</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">Biện Thừa Chí</div>
+                        <div class="card-meta">Ban Điều Hành</div>
+                        <a href="https://www.facebook.com/profile.php?id=61590919357024" target="_blank" class="btn btn-sm" style="text-align:center; text-decoration:none;">Liên Hệ Facebook</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">Ngôn Cảnh Tắc</div>
+                        <div class="card-meta">Ban Điều Hành</div>
+                        <a href="https://www.facebook.com/ngon.canhtac" target="_blank" class="btn btn-sm" style="text-align:center; text-decoration:none;">Liên Hệ Facebook</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">Kinh Trung</div>
+                        <div class="card-meta">Ban Điều Hành</div>
+                        <a href="https://www.facebook.com/k.nihtrung" target="_blank" class="btn btn-sm" style="text-align:center; text-decoration:none;">Liên Hệ Facebook</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">Đức Diểu Quỳnh</div>
+                        <div class="card-meta">Ban Điều Hành</div>
+                        <a href="https://www.facebook.com/profile.php?id=61590717492629" target="_blank" class="btn btn-sm" style="text-align:center; text-decoration:none;">Liên Hệ Facebook</a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:25px; padding: 15px; background: #1a0808; border: 1px solid var(--crimson-red);">
+                <p><b>Group Chính Thức:</b> <a href="https://www.facebook.com/groups/1385121653516597" target="_blank" style="color:var(--bright-red)">Trùng Hoa Tái Group</a></p>
+                <p><b>Fanpage Cộng Đồng:</b> <a href="https://www.facebook.com/profile.php?id=61591857702519" target="_blank" style="color:var(--bright-red)">Trùng Hoa Tái Fanpage</a></p>
+            </div>
+        </section>
+
+        <!-- 2. THIẾT LẬP THẾ GIỚI -->
+        <section id="tab-thegioi" class="page-section">
+            <h2 class="section-title">THIẾT LẬP THẾ GIỚI - TRÙNG HOA TÁI</h2>
+            <div style="white-space: pre-line; color: var(--text-light);">
+                <p class="text-bold text-xl">I. Khởi nguồn</p>
+                Vào thế kỷ XXIX, cùng với sự phát triển vượt bậc của công nghệ thực tế giả lập, dự án trò chơi "Trùng Hoa Tái" tái hiện toàn bộ một nền văn minh cổ đại hư cấu.
+                Ngày trò chơi chính thức mở máy chủ, tất cả người tham gia đều phát hiện mình KHÔNG THỂ ĐĂNG XUẤT. Thân thể ở thế giới thực rơi vào trạng thái thực vật.
+                
+                <p class="text-bold text-xl" style="margin-top:15px;">II. Thời gian</p>
+                24 giờ tại Trùng Hoa tương đương 1 giờ ngoài hiện thực.
+
+                <p class="text-bold text-xl" style="margin-top:15px;">III. Điều kiện rời khỏi</p>
+                Hoàn thành đủ <span class="text-danger text-bold">15 Dị Sự</span> và giữ được tính mạng.
+
+                <p class="text-bold text-xl" style="margin-top:15px;">IV. Quy tắc Hệ Thống</p>
+                1. Không tiết lộ thân phận người tương lai với cư dân bản địa.<br>
+                2. Được phép tiết lộ với người chơi khác.<br>
+                3. Tử vong trong trò chơi = Tử vong thật ngoài đời thực.<br>
+                4. Mỗi 10 ngày bắt buộc tham gia tối thiểu 2 Dị sự (Nếu không sẽ bị trừ Công Đức).
+            </div>
+        </section>
+
+        <!-- 3. QUY ĐỊNH ROLEPLAY -->
+        <section id="tab-quydinh" class="page-section">
+            <h2 class="section-title">QUY ĐỊNH ROLEPLAY & THƯỞNG</h2>
+            <div style="white-space: pre-line;">
+                <p class="text-bold text-lg text-danger">BÌNH LUẬN HỢP LỆ:</p>
+                - Tối thiểu 05 dòng trên điện thoại hoặc 03 dòng trên máy tính.
+                - Mỗi bình luận hợp lệ: <b style="color:var(--gold-accent);">+20 Hoa Tiền</b>
+                - Mỗi bài đăng role sinh hoạt mới (#sinh hoạt): <b style="color:var(--gold-accent);">+100 Hoa Tiền, +2 Công Đức</b>
+
+                <p class="text-bold text-lg text-danger" style="margin-top:15px;">QUY ĐỔI TIỀN TỆ:</p>
+                - <b>01 Công Đức</b> = 50 Hoa Tiền (Quy đổi 1 chiều)
+                - <b>01 Âm Đức</b> = 500 Hoa Tiền (Quy đổi 1 chiều, không thể chuyển nhượng)
+            </div>
+        </section>
+
+        <!-- 4. ĐỊA LÝ VƯƠNG TRIỀU -->
+        <section id="tab-dialy" class="page-section">
+            <h2 class="section-title">ĐỊA LÝ VƯƠNG TRIỀU TRÙNG HOA</h2>
+            <div class="grid-3">
+                <div class="card"><div class="card-body"><div class="card-title">THIÊN KINH</div><p class="text-sm">Kinh đô phồn hoa nhất, có trận pháp hộ quốc trấn giữ long mạch.</p></div></div>
+                <div class="card"><div class="card-body"><div class="card-title">THANH CHÂU</div><p class="text-sm">Kho lương thiên hạ, sông ngòi chằng chịt, nhiều Thủy Quỷ.</p></div></div>
+                <div class="card"><div class="card-body"><div class="card-title">HEUYỀN CHÂU</div><p class="text-sm">Nơi âm khí nặng nhất, chiến trường cổ, chứa nhiều Dị sự Hoàng & Phỉ.</p></div></div>
+                <div class="card"><div class="card-body"><div class="card-title">THIÊN MÔN SƠN</div><p class="text-sm">Dãy núi cao nhất, quanh năm mây phủ, chia cắt ranh giới tà ma.</p></div></div>
+            </div>
+        </section>
+
+        <!-- 5. DIỄN ĐÀN ẨN DANH (CÓ PHÁT HIỆN MẬT KHẨU) -->
+        <section id="tab-diendan" class="page-section">
+            <h2 class="section-title">DIỄN ĐÀN MẬT NẠ (ẨN DANH)</h2>
+            <p class="text-sm" style="margin-bottom:15px;">Khi nhập đúng "Mật khẩu Diễn đàn", người chơi sẽ được khoác danh xưng Ẩn Danh. Mỗi cá nhân được đổi tên 2 lần miễn phí, từ lần 3 khấu trừ 30 Công Đức!</p>
+            
+            <div class="post-card">
+                <div class="form-group">
+                    <label>Mật Khẩu Diễn Đàn (Nhập "TRUNGHOATAI" để kích hoạt ẩn danh):</label>
+                    <input type="text" id="forum-pass" placeholder="Nhập mật khẩu diễn đàn...">
+                </div>
+                <div class="form-group">
+                    <label>Tên Ẩn Danh (Chỉ đổi tối đa 2 lần miễn phí, lần 3 trừ 30 Công Đức):</label>
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" id="forum-alias" placeholder="Ví dụ: Vô Danh Khách">
+                        <button class="btn btn-sm" onclick="setAliasName()">Thiết Lập Tên</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Nội Dung Bài Đăng Mật:</label>
+                    <textarea id="forum-content" rows="3" placeholder="Đăng tin mật tại đây..."></textarea>
+                </div>
+                <button class="btn" onclick="postForumMsg()">Đăng Tin Mật</button>
+            </div>
+
+            <h3 style="color:var(--gold-accent); margin: 20px 0 10px 0;">TIN MẬT TRÊN DIỄN ĐÀN</h3>
+            <div id="forum-posts-list">
+                <!-- Nội dung diễn đàn render tại đây -->
+            </div>
+        </section>
+
+        <!-- 6. THƯƠNG THÀNH (SẢN PHẨM & GIỎ HÀNG) -->
+        <section id="tab-thuongthan" class="page-section">
+            <h2 class="section-title">THƯƠNG THÀNH HỆ THỐNG</h2>
+            <div id="bql-add-product" style="display:none;" class="post-card">
+                <h4 style="color:var(--gold-accent)">THÊM/CHỈNH SỬA SẢN PHẨM (BQL)</h4>
+                <div class="form-group"><label>Tên Sản Phẩm:</label><input type="text" id="p-name"></div>
+                <div class="form-group"><label>Giá (Hoa Tiền):</label><input type="number" id="p-price"></div>
+                <div class="form-group"><label>Mô Tả:</label><textarea id="p-desc" rows="2"></textarea></div>
+                <div class="form-group"><label>Lưu Ý:</label><input type="text" id="p-note"></div>
+                <div class="form-group"><label>Giới Hạn Mua:</label><input type="text" id="p-limit"></div>
+                <div class="form-group"><label>Link Ảnh Image/Drive Public:</label><input type="text" id="p-img"></div>
+                <button class="btn btn-sm" onclick="saveProduct()">Thêm Sản Phẩm</button>
+            </div>
+
+            <div class="grid-3" id="products-list">
+                <!-- Sản phẩm render ở đây -->
+            </div>
+        </section>
+
+        <!-- 7. BÁCH QUỶ ÂM -->
+        <section id="tab-bachquy" class="page-section">
+            <h2 class="section-title">BÁCH QUỶ ÂM (BÁCH KHOA QUỶ DỊ)</h2>
+            <div id="bql-add-ghost" style="display:none;" class="post-card">
+                <h4 style="color:var(--gold-accent)">THÊM YÊU QUỶ MỚI (BQL)</h4>
+                <input type="text" id="g-name" placeholder="Tên Quỷ">
+                <input type="text" id="g-type" placeholder="Phân loại (vd: Lệ Quỷ / Thủy Quỷ)">
+                <input type="text" id="g-danger" placeholder="Mức độ nguy hiểm">
+                <textarea id="g-desc" placeholder="Mô tả sơ lược"></textarea>
+                <input type="text" id="g-img" placeholder="Link Ảnh Minh Họa">
+                <button class="btn btn-sm" onclick="saveGhost()" style="margin-top:5px;">Lưu Yêu Quỷ</button>
+            </div>
+            <div class="grid-3" id="ghosts-list"></div>
+        </section>
+
+        <!-- 8. DỊ SỰ BẢNG -->
+        <section id="tab-disu" class="page-section">
+            <h2 class="section-title">DỊ SỰ BẢNG (NHIỆM VỤ TREO THƯỞNG)</h2>
+            <div id="disu-list"></div>
+        </section>
+
+        <!-- 9. KIM BẢNG ĐỀ DANH -->
+        <section id="tab-kimbang" class="page-section">
+            <h2 class="section-title">KIM BẢNG ĐỀ DANH (TOP 6)</h2>
+            <div class="grid-3" id="kimbang-list"></div>
+        </section>
+
+        <!-- 10. HỒ SƠ CÁ NHÂN & DANG KÝ TAÍ KHOẢN -->
+        <section id="tab-canhan" class="page-section">
+            <h2 class="section-title">HỒ SƠ TÀI KHOẢN CÁ NHÂN</h2>
+            
+            <div style="display:flex; gap:20px; flex-wrap:wrap;">
+                <!-- ĐĂNG KÝ TÀI KHOẢN -->
+                <div class="post-card" style="flex:1; min-width:300px;">
+                    <h3 style="color:var(--gold-accent); margin-bottom:10px;">TẠO TÀI KHOẢN MỚI</h3>
+                    <div class="form-group"><label>Đường Link Facebook:</label><input type="text" id="reg-fb"></div>
+                    <div class="form-group"><label>Danh Tính OC:</label><input type="text" id="reg-oc"></div>
+                    <div class="form-group"><label>Xuất Thân:</label><input type="text" id="reg-origin"></div>
+                    <div class="form-group"><label>Niên Kỷ (Tuổi):</label><input type="number" id="reg-age"></div>
+                    <div class="form-group"><label>Văn Án (Kịch bản):</label><textarea id="reg-script" rows="3"></textarea></div>
+                    <button class="btn" onclick="registerAccount()">Gửi Yêu Cầu Duyệt Hồ Sơ</button>
+                </div>
+
+                <!-- HIỂN THỊ HỒ SƠ CÁ NHÂN -->
+                <div class="post-card" style="flex:2; min-width:300px;" id="profile-display">
+                    <h3 style="color:var(--bright-red);" id="prof-oc">Danh Tính OC: Chưa Đăng Nhập</h3>
+                    <p class="text-sm">ID Người Chơi: <b id="prof-id">---</b></p>
+                    <p class="text-sm">Facebook: <a href="#" id="prof-fb" target="_blank" style="color:var(--gold-accent)">Link</a></p>
+                    <div style="margin: 10px 0;">
+                        <img id="prof-avatar" src="https://via.placeholder.com/100x100?text=Avatar" style="width:100px; height:100px; border:1px solid var(--gold-accent);">
+                        <p class="text-sm" style="color:var(--text-dim);">(Ảnh đại diện do Ban Quản Lý tải lên)</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Tiểu Sử (Tối đa 100 từ - <span id="word-count" style="color:var(--bright-red)">0</span>/100 từ):</label>
+                        <textarea id="prof-bio" rows="3" oninput="checkWordCount(this)"></textarea>
+                        <button class="btn btn-sm" onclick="saveBio()" style="margin-top:5px;">Lưu Tiểu Sử</button>
+                    </div>
+
+                    <p><b>Tài Sản Hiện Có (BQL cập nhật):</b> <span id="prof-money" class="text-xl">0</span> Hoa Tiền | <span id="prof-congduc" style="color:#00ffcc">0</span> Công Đức</p>
+                    <p><b>Thành Tựu:</b> <span id="prof-achieve">Chưa có</span></p>
+
+                    <!-- GIỎ HÀNG CÁ NHÂN (MAX 10 VẬT PHẨM) -->
+                    <div style="margin-top:20px; border-top: 1px dashed var(--border-color); padding-top:10px;">
+                        <h4 style="color:var(--gold-accent)">GIỎ HÀNG (Sức chứa <span id="cart-count">0</span>/10)</h4>
+                        <div id="cart-items" style="margin:10px 0;"></div>
+                        <button class="btn btn-sm" onclick="checkoutCart()">Tiến Hành Mua Tất Cả</button>
+                    </div>
+
+                    <!-- HỆ THỐNG PHÍM NHẮN TIN BẠN BÈ -->
+                    <div style="margin-top:20px; border-top: 1px dashed var(--border-color); padding-top:10px;">
+                        <h4 style="color:var(--gold-accent)">NHẮN TIN BẠN BÈ (PRIVATE CHAT)</h4>
+                        <input type="text" id="chat-target-id" placeholder="Nhập ID Bạn Bè để nhắn tin..." style="margin-bottom:5px;">
+                        <div class="chat-box" id="chat-box-body"></div>
+                        <div style="display:flex; gap:5px;">
+                            <input type="text" id="chat-input-text" placeholder="Nhập tin nhắn chữ (Không hỗ trợ ảnh/audio/video)...">
+                            <button class="btn btn-sm" onclick="sendPrivateMsg()">Gửi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DANH SÁCH DUYỆT TÀI KHOẢN (BQL VIEW) -->
+            <div id="bql-approval-list" style="display:none; margin-top:20px;" class="post-card">
+                <h3 style="color:var(--gold-accent)">DANH SÁCH CHỜ DUYỆT TÀI KHOẢN & PHÂN QUYỀN (BQL)</h3>
+                <div id="pending-users"></div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- MODAL ĐĂNG NHẬP / QUẢN LÝ -->
+    <div id="login-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); z-index:10000; justify-content:center; align-items:center;">
+        <div class="post-card" style="width:320px; background:#140a0a;">
+            <h3 style="color:var(--bright-red); margin-bottom:10px;">ĐĂNG NHẬP TÀI KHOẢN</h3>
+            <div class="form-group"><label>Email / Tên đăng nhập:</label><input type="text" id="login-email"></div>
+            <div class="form-group"><label>Mật Khẩu:</label><input type="password" id="login-pass"></div>
+            <p class="text-sm" style="color:var(--text-dim); margin-bottom:10px;">Tài khoản Ban Quản Lý định sẵn:<br><b>kinhnha010@gmail.com</b><br><b>hamthien53@gmail.com</b><br>(Đăng nhập lần đầu tự thiết lập pass)</p>
+            <button class="btn" onclick="handleLogin()">Đăng Nhập</button>
+            <button class="btn btn-danger" onclick="closeLoginModal()" style="margin-left:5px;">Hủy</button>
+        </div>
+    </div>
+
+    <script>
+        /* --- KHỞI TẠO DỮ LIỆU LOCALSTORAGE TRÚC VĂN & HỆ THỐNG --- */
+        const BQL_EMAILS = ["kinhnha010@gmail.com", "hamthien53@gmail.com"];
+
+        let currentUser = JSON.parse(localStorage.getItem('tht_currentUser')) || null;
+        let isBQLMode = false;
+
+        let db = {
+            intro: localStorage.getItem('tht_intro') || "Chào mừng các vị linh hồn đã giáng lâm xuống Vương Triều Trùng Hoa. Đây là nơi ranh giới giữa sự sống và cái chết vô cùng mong manh.",
+            products: JSON.parse(localStorage.getItem('tht_products')) || [
+                { id: 1, name: "Bùa Thanh Tâm", price: 100, desc: "Khắc chế Mộng Quỷ, Hí Quỷ, khôi phục 30% thanh tỉnh.", note: "Dán trán hoặc đốt hòa nước.", limit: "3 lá/tuần", img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300" },
+                { id: 2, name: "Thuốc Trị Thương Hệ Thống", price: 150, desc: "Cầm máu cấp tốc, giảm 50% thi độc.", note: "Không thể cứu người đã cạn máu.", limit: "3 lọ/tuần", img: "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?w=300" },
+                { id: 3, name: "Đèn Dẫn Hồn", price: 1500, desc: "Soi rõ đường đi của âm khí, hiển thị linh hồn.", note: "Cháy tối đa 30 phút/lần.", limit: "1 chiếc/tháng", img: "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?w=300" }
+            ],
+            ghosts: JSON.parse(localStorage.getItem('tht_ghosts')) || [
+                { id: 1, name: "Tân Nương Quỷ", type: "Lệ Quỷ", danger: "Cao (Hoàng)", desc: "Oán khí tích tụ từ tân nương uất hận trong ngày cưới.", img: "https://images.unsplash.com/photo-1509281373149-e957c6296406?w=300" }
+            ],
+            forumPosts: JSON.parse(localStorage.getItem('tht_forum')) || [],
+            users: JSON.parse(localStorage.getItem('tht_users')) || [],
+            messages: JSON.parse(localStorage.getItem('tht_messages')) || []
+        };
+
+        // Bắt đầu Phát nhạc & Vào Game
+        function enterGame() {
+            document.getElementById('gate-screen').style.display = 'none';
+            const audio = document.getElementById('bg-music');
+            audio.play().catch(e => console.log("Audio play blocked by browser"));
+        }
+
+        // Chuyển Tab
+        function switchTab(tabId) {
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Chế độ Ban Quản Lý (View Toggle)
+        function toggleViewMode() {
+            isBQLMode = document.getElementById('toggle-admin-view').checked;
+            const statusEl = document.getElementById('admin-status');
+            
+            if(isBQLMode) {
+                if(!currentUser || !currentUser.isBQL) {
+                    alert("Bạn cần đăng nhập tài khoản BQL (kinhnha010@gmail.com hoặc hamthien53@gmail.com) để bật chế độ này!");
+                    document.getElementById('toggle-admin-view').checked = false;
+                    isBQLMode = false;
+                    return;
+                }
+                statusEl.innerHTML = `Chế độ: <b style="color:var(--bright-red)">BAN ĐIỀU HÀNH (TOÀN QUYỀN)</b>`;
+                document.getElementById('bql-edit-intro').style.display = 'block';
+                document.getElementById('bql-add-product').style.display = 'block';
+                document.getElementById('bql-add-ghost').style.display = 'block';
+                document.getElementById('bql-approval-list').style.display = 'block';
+            } else {
+                statusEl.innerHTML = `Chế độ: <b style="color:var(--gold-accent)">GÓC NHÌN NGƯỜI CHƠI (MẶC ĐỊNH)</b>`;
+                document.getElementById('bql-edit-intro').style.display = 'none';
+                document.getElementById('bql-add-product').style.display = 'none';
+                document.getElementById('bql-add-ghost').style.display = 'none';
+                document.getElementById('bql-approval-list').style.display = 'none';
+            }
+            renderAll();
+        }
+
+        /* --- XỬ LÝ ĐĂNG NHẬP BQL & THIẾT LẬP PASS LẦN ĐẦU --- */
+        function openLoginModal() { document.getElementById('login-modal').style.display = 'flex'; }
+        function closeLoginModal() { document.getElementById('login-modal').style.display = 'none'; }
+
+        function handleLogin() {
+            const email = document.getElementById('login-email').value.trim();
+            const pass = document.getElementById('login-pass').value.trim();
+
+            if (BQL_EMAILS.includes(email)) {
+                let bqlPass = localStorage.getItem('tht_bql_pass_' + email);
+                if (!bqlPass) {
+                    // Đăng nhập lần đầu tự tạo pass
+                    localStorage.setItem('tht_bql_pass_' + email, pass);
+                    alert("Đăng nhập lần đầu thành công! Mật khẩu BQL đã được tự động khởi tạo cho tài khoản của bạn.");
+                } else if (bqlPass !== pass) {
+                    alert("Mật khẩu BQL không chính xác!");
+                    return;
+                }
+                currentUser = { email: email, name: "Ban Điều Hành", isBQL: true, id: "BQL-01", money: 999999, congduc: 99999, bio: "Ban Quản Lý Hệ Thống Trùng Hoa Tái", cart: [] };
+                localStorage.setItem('tht_currentUser', JSON.stringify(currentUser));
+                alert("Đã đăng nhập thành công với quyền BQL!");
+                closeLoginModal();
+                updateUserUI();
+                return;
+            }
+
+            // Đăng nhập người chơi bình thường
+            let foundUser = db.users.find(u => u.email === email && u.approved);
+            if(foundUser) {
+                currentUser = foundUser;
+                localStorage.setItem('tht_currentUser', JSON.stringify(currentUser));
+                alert("Đăng nhập người chơi thành công!");
+                closeLoginModal();
+                updateUserUI();
+            } else {
+                alert("Tài khoản không tồn tại hoặc chưa được BQL phê duyệt!");
+            }
+        }
+
+        // Render & Lưu dữ liệu Giới thiệu
+        function saveIntroContent() {
+            const val = document.getElementById('intro-edit-input').value;
+            db.intro = val;
+            localStorage.setItem('tht_intro', val);
+            document.getElementById('intro-content').innerText = val;
+            alert("Đã cập nhật bài giới thiệu!");
+        }
+
+        /* --- BÀI ĐĂNG DIỄN ĐÀN ẨN DANH & ĐỔI TÊN KHẤU TRỪ CÔNG ĐỨC --- */
+        function setAliasName() {
+            if(!currentUser) { alert("Vui lòng tạo tài khoản/đăng nhập!"); return; }
+            const alias = document.getElementById('forum-alias').value.trim();
+            if(!alias) return;
+
+            currentUser.aliasChangeCount = currentUser.aliasChangeCount || 0;
+            if(currentUser.aliasChangeCount >= 2) {
+                if(currentUser.congduc < 30) {
+                    alert("Bạn đã đổi tên quá 2 lần! Đổi lần 3 cần 30 Công Đức (Tài sản bạn không đủ!).");
+                    return;
+                }
+                currentUser.congduc -= 30;
+                alert("Hệ thống diễn kịch trừ 30 Công Đức để đổi tên ẩn danh lần thứ " + (currentUser.aliasChangeCount + 1));
+            }
+            currentUser.aliasName = alias;
+            currentUser.aliasChangeCount++;
+            localStorage.setItem('tht_currentUser', JSON.stringify(currentUser));
+            alert("Đã thiết lập tên ẩn danh: " + alias);
+        }
+
+        function postForumMsg() {
+            const pass = document.getElementById('forum-pass').value.trim();
+            const content = document.getElementById('forum-content').value.trim();
+            if(!content) return;
+
+            let isAnon = (pass === "TRUNGHOATAI");
+            let author = isAnon ? (currentUser?.aliasName || "AnDanh_KhuyetDanh") : (currentUser?.name || "Khách Chu Du");
+
+            const post = {
+                id: Date.now(),
+                author: author,
+                realIdentity: currentUser ? currentUser.name + " (" + currentUser.id + ")" : "Ẩn danh vô danh",
+                content: content,
+                isAnon: isAnon,
+                time: new Date().toLocaleTimeString()
+            };
+
+            db.forumPosts.unshift(post);
+            localStorage.setItem('tht_forum', JSON.stringify(db.forumPosts));
+            document.getElementById('forum-content').value = "";
+            renderForum();
+        }
+
+        function renderForum() {
+            const container = document.getElementById('forum-posts-list');
+            container.innerHTML = db.forumPosts.map(p => `
+                <div class="post-card">
+                    <div class="post-header">
+                        <span><b>${p.author}</b> ${p.isAnon ? '<i style="color:var(--text-dim)">(Tin Mật Ẩn Danh)</i>' : ''}</span>
+                        <span>${p.time}</span>
+                    </div>
+                    <p style="color:var(--text-light);">${p.content}</p>
+                    ${(isBQLMode && p.isAnon) ? `<p class="text-sm text-danger" style="margin-top:5px;">[BQL SOI DANH TÍNH THẬT]: ${p.realIdentity}</p>` : ''}
+                    ${isBQLMode ? `<button class="btn btn-sm btn-danger" style="margin-top:5px;" onclick="deleteForumPost(${p.id})">Xóa Tin Mật</button>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function deleteForumPost(id) {
+            db.forumPosts = db.forumPosts.filter(p => p.id !== id);
+            localStorage.setItem('tht_forum', JSON.stringify(db.forumPosts));
+            renderForum();
+        }
+
+        /* --- SẢN PHẨM & MUA HÀNG GIỎ HÀNG MAX 10 --- */
+        function saveProduct() {
+            const name = document.getElementById('p-name').value;
+            const price = parseInt(document.getElementById('p-price').value) || 0;
+            const desc = document.getElementById('p-desc').value;
+            const note = document.getElementById('p-note').value;
+            const limit = document.getElementById('p-limit').value;
+            const img = document.getElementById('p-img').value || "https://via.placeholder.com/300";
+
+            db.products.push({ id: Date.now(), name, price, desc, note, limit, img });
+            localStorage.setItem('tht_products', JSON.stringify(db.products));
+            renderProducts();
+            alert("Đã thêm sản phẩm mới!");
+        }
+
+        function addToCart(pId) {
+            if(!currentUser) { alert("Vui lòng đăng nhập!"); return; }
+            currentUser.cart = currentUser.cart || [];
+            if(currentUser.cart.length >= 10) {
+                alert("Giỏ hàng đã đầy (Giới hạn tối đa 10 vật phẩm)! Hãy tiến hành mua hoặc xóa bớt.");
+                return;
+            }
+            let item = db.products.find(p => p.id === pId);
+            if(item) {
+                currentUser.cart.push(item);
+                localStorage.setItem('tht_currentUser', JSON.stringify(currentUser));
+                updateUserUI();
+                alert("Đã thêm [" + item.name + "] vào giỏ hàng!");
+            }
+        }
+
+        function removeFromCart(index) {
+            currentUser.cart.splice(index, 1);
+            localStorage.setItem('tht_currentUser', JSON.stringify(currentUser));
+            updateUserUI();
+        }
+
+        function checkoutCart() {
+            if(!currentUser || !currentUser.cart || currentUser.cart.length === 0) return;
+            let total = currentUser.cart.reduce((sum, item) => sum + item.price, 0);
+
+            if(currentUser.money < total) {
+                alert("Thất bại! Tài sản Hoa Tiền của bạn không đủ để thanh toán. Tổng: " + total + " Hoa Tiền.");
+                return;
+            }
+
+            currentUser.money -= total;
+            alert("Thanh toán thành công! Hệ thống đã tự động trừ " + total + " Hoa Tiền.");
+            currentUser.cart = [];
+            localStorage.setItem('tht_currentUser', JSON.stringify(currentUser));
+            updateUserUI();
+        }
+
+        function renderProducts() {
+            const list = document.getElementById('products-list');
+            list.innerHTML = db.products.map(p => `
+                <div class="card">
+                    <img src="${p.img}" alt="Product">
+                    <div class="card-body">
+                        <div class="card-title">${p.name}</div>
+                        <p class="text-sm"><b>Giá:</b> <span class="text-danger">${p.price} Hoa Tiền</span></p>
+                        <p class="text-sm"><b>Mô tả:</b> ${p.desc}</p>
+                        <p class="text-sm"><b>Lưu ý:</b> ${p.note}</p>
+                        <p class="text-sm"><b>Giới hạn mua:</b> ${p.limit}</p>
+                        <button class="btn btn-sm" style="margin-top:10px;" onclick="addToCart(${p.id})">Thêm Vào Giỏ Hàng</button>
+                        ${isBQLMode ? `<button class="btn btn-sm btn-danger" style="margin-top:5px;" onclick="deleteProduct(${p.id})">Xóa SP (BQL)</button>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function deleteProduct(id) {
+            db.products = db.products.filter(p => p.id !== id);
+            localStorage.setItem('tht_products', JSON.stringify(db.products));
+            renderProducts();
+        }
+
+        /* --- BÁCH QUỶ ÂM RENDER --- */
+        function saveGhost() {
+            const name = document.getElementById('g-name').value;
+            const type = document.getElementById('g-type').value;
+            const danger = document.getElementById('g-danger').value;
+            const desc = document.getElementById('g-desc').value;
+            const img = document.getElementById('g-img').value || "https://via.placeholder.com/300";
+
+            db.ghosts.push({ id: Date.now(), name, type, danger, desc, img });
+            localStorage.setItem('tht_ghosts', JSON.stringify(db.ghosts));
+            renderGhosts();
+        }
+
+        function renderGhosts() {
+            const list = document.getElementById('ghosts-list');
+            list.innerHTML = db.ghosts.map(g => `
+                <div class="card">
+                    <img src="${g.img}">
+                    <div class="card-body">
+                        <div class="card-title">${g.name}</div>
+                        <p class="text-sm"><b>Phân loại:</b> ${g.type}</p>
+                        <p class="text-sm"><b>Mức độ nguy hiểm:</b> <span class="text-danger">${g.danger}</span></p>
+                        <p class="text-sm">${g.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /* --- HỒ SƠ CÁ NHÂN & TẠO TÀI KHOẢN --- */
+        function registerAccount() {
+            const fb = document.getElementById('reg-fb').value;
+            const oc = document.getElementById('reg-oc').value;
+            const origin = document.getElementById('reg-origin').value;
+            const age = document.getElementById('reg-age').value;
+            const script = document.getElementById('reg-script').value;
+
+            if(!fb || !oc) { alert("Vui lòng điền thông tin bắt buộc!"); return; }
+
+            const newUser = {
+                id: "TH" + Math.floor(1000 + Math.random() * 9000),
+                email: fb,
+                name: oc,
+                fb: fb,
+                origin: origin,
+                age: age,
+                script: script,
+                bio: "",
+                money: 100,
+                congduc: 10,
+                approved: false,
+                avatar: "https://via.placeholder.com/100?text=OC",
+                cart: []
+            };
+
+            db.users.push(newUser);
+            localStorage.setItem('tht_users', JSON.stringify(db.users));
+            alert("Đã gửi yêu cầu tạo tài khoản thành công! Hãy đợi Quản Lý phê duyệt.");
+            renderPendingUsers();
+        }
+
+        function renderPendingUsers() {
+            const div = document.getElementById('pending-users');
+            let pending = db.users.filter(u => !u.approved);
+            div.innerHTML = pending.map(u => `
+                <div style="border-bottom:1px solid #333; padding:10px 0;">
+                    <p><b>OC:</b> ${u.name} | <b>ID:</b> ${u.id} | <b>FB:</b> ${u.fb}</p>
+                    <p class="text-sm"><b>Xuất thân:</b> ${u.origin} | <b>Tuổi:</b> ${u.age}</p>
+                    <p class="text-sm"><b>Văn án:</b> ${u.script}</p>
+                    <button class="btn btn-sm" onclick="approveUser('${u.id}')">Duyệt Tài Khoản này</button>
+                </div>
+            `).join('');
+        }
+
+        function approveUser(id) {
+            let u = db.users.find(x => x.id === id);
+            if(u) {
+                u.approved = true;
+                localStorage.setItem('tht_users', JSON.stringify(db.users));
+                renderPendingUsers();
+                alert("Đã duyệt tài khoản thành công!");
+            }
+        }
+
+        function checkWordCount(el) {
+            let words = el.value.trim().split(/\s+/).filter(w => w.length > 0);
+            document.getElementById('word-count').innerText = words.length;
+            if(words.length > 100) {
+                alert("Tiểu sử không vượt quá 100 từ!");
+            }
+        }
+
+        function saveBio() {
+            let val = document.getElementById('prof-bio').value;
+            let words = val.trim().split(/\s+/).filter(w => w.length > 0);
+            if(words.length > 100) { alert("Quá 100 từ!"); return; }
+
+            if(currentUser) {
+                currentUser.bio = val;
+                localStorage.setItem('tht_currentUser', JSON.stringify(currentUser));
+                alert("Đã lưu tiểu sử!");
+            }
+        }
+
+        function updateUserUI() {
+            if(!currentUser) return;
+            document.getElementById('prof-oc').innerText = "Danh Tính OC: " + (currentUser.name || "Chưa đặt");
+            document.getElementById('prof-id').innerText = currentUser.id || "---";
+            document.getElementById('prof-fb').href = currentUser.fb || "#";
+            document.getElementById('prof-bio').value = currentUser.bio || "";
+            document.getElementById('prof-money').innerText = currentUser.money || 0;
+            document.getElementById('prof-congduc').innerText = currentUser.congduc || 0;
+            document.getElementById('prof-avatar').src = currentUser.avatar || "https://via.placeholder.com/100";
+
+            // Giỏ hàng
+            currentUser.cart = currentUser.cart || [];
+            document.getElementById('cart-count').innerText = currentUser.cart.length;
+            document.getElementById('cart-items').innerHTML = currentUser.cart.map((item, index) => `
+                <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:5px; background:#110505; padding:4px 8px;">
+                    <span>${item.name} (${item.price} Hoa Tiền)</span>
+                    <button class="btn btn-sm btn-danger" onclick="removeFromCart(${index})">Xóa</button>
+                </div>
+            `).join('');
+        }
+
+        /* --- NHẮN TIN RIÊNG CHỮ (PRIVATE CHAT) --- */
+        function sendPrivateMsg() {
+            const targetId = document.getElementById('chat-target-id').value.trim();
+            const text = document.getElementById('chat-input-text').value.trim();
+            if(!currentUser || !targetId || !text) return;
+
+            const msg = {
+                from: currentUser.id,
+                to: targetId,
+                text: text,
+                time: new Date().toLocaleTimeString()
+            };
+
+            db.messages.push(msg);
+            localStorage.setItem('tht_messages', JSON.stringify(db.messages));
+            document.getElementById('chat-input-text').value = "";
+            renderChat();
+        }
+
+        function renderChat() {
+            const targetId = document.getElementById('chat-target-id').value.trim();
+            if(!currentUser || !targetId) return;
+
+            const box = document.getElementById('chat-box-body');
+            let msgs = db.messages.filter(m => (m.from === currentUser.id && m.to === targetId) || (m.from === targetId && m.to === currentUser.id));
+
+            box.innerHTML = msgs.map(m => `
+                <div class="chat-msg ${m.from === currentUser.id ? 'me' : 'them'}">
+                    <p class="text-sm"><b>${m.from}:</b> ${m.text}</p>
+                </div>
+            `).join('');
+        }
+
+        /* --- TÌM KIẾM TOÀN HỆ THỐNG --- */
+        function handleGlobalSearch() {
+            const query = document.getElementById('global-search').value.toLowerCase().trim();
+            if(!query) return;
+
+            // Tìm kiếm người chơi bằng ID/Tên
+            let foundUser = db.users.find(u => u.id.toLowerCase().includes(query) || u.name.toLowerCase().includes(query));
+            if(foundUser) {
+                alert(`[KẾT QUẢ TÌM KIẾM NGƯỜI CHƠI]\nDanh tính OC: ${foundUser.name}\nID: ${foundUser.id}\nXuất thân: ${foundUser.origin}`);
+            }
+        }
+
+        // Tự động Khởi chạy khi load trang
+        function renderAll() {
+            document.getElementById('intro-content').innerText = db.intro;
+            document.getElementById('intro-edit-input').value = db.intro;
+            renderForum();
+            renderProducts();
+            renderGhosts();
+            renderPendingUsers();
+            updateUserUI();
+        }
+
+        window.onload = function() {
+            renderAll();
+        };
+    </script>
+</body>
+</html>
